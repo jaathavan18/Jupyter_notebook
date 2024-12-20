@@ -1,9 +1,21 @@
 # Table of contents
 format: jb-book
-root: intro
+root: intro_root
 
 chapters:
-  - file: skills
-  - file: projects
-  - file: video
-  - file: EAS503
+- file: aboutme
+  title: About Me
+
+- file: portfolio/index
+  title: Portfolio
+  sections:
+    - file: portfolio/skills
+      title: Skills and Certifications
+    - file: portfolio/projects
+      title: Projects
+
+- file: eas503/EAS503
+  title: EAS503 Project Summary
+  sections:
+    - file: eas503/video
+      title: My Video

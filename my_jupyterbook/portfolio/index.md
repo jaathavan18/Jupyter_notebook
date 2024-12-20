@@ -1,9 +1,10 @@
-# Janarthan Aravindan Aathavan
+## Portfolio
+
+### Janarthan Aravindan Aathavan
 
 **Email:** janartha@buffalo.edu  
-**Phone:** ************  
 **LinkedIn:** [linkedin.com/in/jaathavan](http://linkedin.com/in/jaathavan)  
-**Location:** Buffalo, New York  
+**Location:** Buffalo, New York
 
 ---
 

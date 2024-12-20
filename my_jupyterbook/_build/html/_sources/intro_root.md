@@ -2,7 +2,7 @@
 
 Welcome to my portfolio!
 
-I’m **Janarthan Aravindan Aathavan**, a Data Science enthusiast and Master's student at the University at Buffalo. This JupyterBook is a showcase of my academic background, skills, projects, and experiences that define my journey in data science and beyond.
+I’m **Janarthan Aathavan**, a Data Science enthusiast and Master's student at the University at Buffalo. This JupyterBook is a showcase of my academic background, skills, projects, and experiences that define my journey in data science and beyond.
 
 ---
 
