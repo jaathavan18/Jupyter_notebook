@@ -3,19 +3,11 @@ format: jb-book
 root: intro_root
 
 chapters:
-- file: aboutme
-  title: About Me
+  - file: portfolio
+    title: Portfolio
 
-- file: portfolio/index
-  title: Portfolio
-  sections:
-    - file: portfolio/skills
-      title: Skills and Certifications
-    - file: portfolio/projects
-      title: Projects
-
-- file: eas503/EAS503
-  title: EAS503 Project Summary
-  sections:
-    - file: eas503/video
-      title: My Video
+  - file: eas503/EAS503
+    title: EAS503 Project Summary
+    sections:
+      - file: eas503/video
+        title: My Video
