@@ -1,0 +1,9 @@
+# Table of contents
+format: jb-book
+root: intro
+
+chapters:
+  - file: skills
+  - file: projects
+  - file: video
+  - file: EAS503
