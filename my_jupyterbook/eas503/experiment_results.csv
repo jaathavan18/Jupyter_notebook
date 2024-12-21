@@ -1,0 +1,8 @@
+Experiment,Model,F1,Accuracy,Overfitting
+Experiment 1,Logistic Regression,0.8315751551297144,0.8327431785044782,False
+Experiment 2,Logistic Regression,0.8315751551297144,0.8327431785044782,
+Experiment 2,Ridge Classifier,0.5012248494360744,0.5881066444490731,
+Experiment 2,Random Forest,1.0,1.0,
+Experiment 3,Random Forest,1.0,1.0,False
+Experiment 4,Logistic Regression with Feature Selection,0.26530603948186854,0.2734846906894397,False
+Experiment 5,Logistic Regression,0.6122890695061937,0.6449697979587586,False

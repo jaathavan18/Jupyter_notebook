@@ -2,8 +2,9 @@
 
 ### Janarthan Aravindan Aathavan
 
-**Email:** janartha@buffalo.edu  
-**LinkedIn:** [linkedin.com/in/jaathavan](http://linkedin.com/in/jaathavan)  
+**Email:** [janartha@buffalo.edu](mailto:janartha@buffalo.edu)  
+**LinkedIn:** [linkedin.com/in/jaathavan](https://linkedin.com/in/jaathavan)  
+**Github:** [github.com/jaathavan18](https://github.com/jaathavan18)  
 **Location:** Buffalo, New York
 
 ---

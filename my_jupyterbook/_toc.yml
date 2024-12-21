@@ -1,13 +1,22 @@
 # Table of contents
 format: jb-book
-root: intro_root
+root: aboutme
 
 chapters:
   - file: portfolio
     title: Portfolio
 
   - file: eas503/EAS503
-    title: EAS503 Project Summary
+    title: EAS503 - Phone Price Prediction
     sections:
-      - file: eas503/video
-        title: My Video
+      - file: eas503/links
+        title: Links
+      
+      - file: eas503/notebook1.ipynb
+        title: Creating a normalized database (3NF)
+
+      - file: eas503/notebook2.ipynb  
+        title: Initial Data Exploration 
+
+      - file: eas503/notebook3.ipynb
+        title: Data Experiments and Final Data Analysis

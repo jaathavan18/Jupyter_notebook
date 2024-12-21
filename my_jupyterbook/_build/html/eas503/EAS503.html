@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>EAS503 Project Summary &#8212; My sample book</title>
+    <title>EAS503 - Phone Price Prediction &#8212; My sample book</title>
   
   
   
@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'eas503/EAS503';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="My Video" href="video.html" />
+    <link rel="next" title="Links" href="links.html" />
     <link rel="prev" title="Portfolio" href="../portfolio.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -135,7 +135,7 @@
     
   
 
-<a class="navbar-brand logo" href="../intro_root.html">
+<a class="navbar-brand logo" href="../aboutme.html">
   
   
   
@@ -163,7 +163,7 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../intro_root.html">
+                <a class="reference internal" href="../aboutme.html">
                     About Me
                 </a>
             </li>
@@ -171,8 +171,13 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../portfolio.html">Portfolio</a></li>
 
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">EAS503 Project Summary</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="video.html">My Video</a></li>
+
+
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">EAS503 - Phone Price Prediction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebook1.html">Creating a normalized database (3NF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebook2.html">Initial Data Exploration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebook3.html">Data Experiments and Final Data Analysis</a></li>
 </ul>
 </details></li>
 </ul>
@@ -357,7 +362,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>EAS503 Project Summary</h1>
+    <h1>EAS503 - Phone Price Prediction</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -367,14 +372,19 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-and-preprocessing"><strong>1. Dataset and Preprocessing</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training"><strong>2. Model Training</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-development"><strong>3. Backend Development</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frontend-development"><strong>4. Frontend Development</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dockerization"><strong>5. Dockerization</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-management"><strong>6. Dependency Management</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging"><strong>7. Debugging</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#achievements"><strong>Achievements</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary"><strong>Summary</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#database-and-data-preprocessing"><strong>1. Database and Data Preprocessing</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experiments-and-model-training"><strong>2. Experiments and Model Training</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-finalization"><strong>3. Model Finalization</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-development"><strong>4. Backend Development</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frontend-development"><strong>5. Frontend Development</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#containerization"><strong>6. Containerization</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-and-deployment"><strong>7. Integration and Deployment</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-and-visualization"><strong>8. Results and Visualization</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables"><strong>9. Deliverables</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#achievements"><strong>Achievements</strong></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -386,189 +396,278 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="eas503-project-summary">
-<h1>EAS503 Project Summary<a class="headerlink" href="#eas503-project-summary" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="eas503-phone-price-prediction">
+<h1>EAS503 - Phone Price Prediction<a class="headerlink" href="#eas503-phone-price-prediction" title="Link to this heading">#</a></h1>
 <p>Here’s a comprehensive summary of the work done in this project:</p>
 <hr class="docutils" />
-<section id="dataset-and-preprocessing">
-<h2><strong>1. Dataset and Preprocessing</strong><a class="headerlink" href="#dataset-and-preprocessing" title="Link to this heading">#</a></h2>
+<section id="summary">
+<h2><strong>Summary</strong><a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<section id="database-and-data-preprocessing">
+<h3><strong>1. Database and Data Preprocessing</strong><a class="headerlink" href="#database-and-data-preprocessing" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Database Connection</strong>:</p>
 <ul>
-<li><p>Connected to <code class="docutils literal notranslate"><span class="pre">mobile_phones.db</span></code> using SQLite.</p></li>
-<li><p>Retrieved data using SQL queries with multiple table joins (<code class="docutils literal notranslate"><span class="pre">phones</span></code>, <code class="docutils literal notranslate"><span class="pre">screen_specs</span></code>, <code class="docutils literal notranslate"><span class="pre">camera_specs</span></code>, <code class="docutils literal notranslate"><span class="pre">phone_features</span></code>, and <code class="docutils literal notranslate"><span class="pre">storage_specs</span></code>).</p></li>
+<li><p>Connected to the normalized <strong>3NF</strong> database <code class="docutils literal notranslate"><span class="pre">mobile_phones.db</span></code> using SQLite.</p></li>
+<li><p>Retrieved data using SQL <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> queries across multiple tables (<code class="docutils literal notranslate"><span class="pre">phones</span></code>, <code class="docutils literal notranslate"><span class="pre">screen_specs</span></code>, <code class="docutils literal notranslate"><span class="pre">camera_specs</span></code>, <code class="docutils literal notranslate"><span class="pre">phone_features</span></code>, and <code class="docutils literal notranslate"><span class="pre">storage_specs</span></code>) into a Pandas DataFrame.</p></li>
+</ul>
+</li>
+<li><p><strong>Data Exploration</strong>:</p>
+<ul>
+<li><p>Analyzed distributions, capped values, and correlations using <code class="docutils literal notranslate"><span class="pre">yprofile</span></code> and correlation matrices.</p></li>
+<li><p>Identified the need to stratify data by <code class="docutils literal notranslate"><span class="pre">price_range</span></code> for train/test splitting.</p></li>
 </ul>
 </li>
 <li><p><strong>Feature Engineering</strong>:</p>
 <ul>
-<li><p>Created new features:</p>
+<li><p>Created derived features:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">total_camera</span></code> = <code class="docutils literal notranslate"><span class="pre">front_camera</span></code> + <code class="docutils literal notranslate"><span class="pre">primary_camera</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">total_pixels</span></code> = <code class="docutils literal notranslate"><span class="pre">px_height</span></code> * <code class="docutils literal notranslate"><span class="pre">px_width</span></code></p></li>
 </ul>
 </li>
-<li><p>Imputed missing or zero values for <code class="docutils literal notranslate"><span class="pre">sc_w</span></code> using the mean.</p></li>
-<li><p>Dropped redundant features:</p>
+<li><p>Imputed missing/zero values (e.g., <code class="docutils literal notranslate"><span class="pre">sc_w</span></code>) using the mean.</p></li>
+<li><p>Dropped redundant or low-importance features: <code class="docutils literal notranslate"><span class="pre">front_camera</span></code>, <code class="docutils literal notranslate"><span class="pre">primary_camera</span></code>, <code class="docutils literal notranslate"><span class="pre">px_height</span></code>, <code class="docutils literal notranslate"><span class="pre">px_width</span></code>, <code class="docutils literal notranslate"><span class="pre">three_g</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Normalization</strong>:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">front_camera</span></code>, <code class="docutils literal notranslate"><span class="pre">primary_camera</span></code>, <code class="docutils literal notranslate"><span class="pre">px_height</span></code>, <code class="docutils literal notranslate"><span class="pre">px_width</span></code>, <code class="docutils literal notranslate"><span class="pre">three_g</span></code>.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Data Normalization</strong>:</p>
+<li><p>Applied transformations:</p>
 <ul>
-<li><p>Applied <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> to normalize features like <code class="docutils literal notranslate"><span class="pre">battery_power</span></code>, <code class="docutils literal notranslate"><span class="pre">ram</span></code>, and <code class="docutils literal notranslate"><span class="pre">int_memory</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> for standardization.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code> and <code class="docutils literal notranslate"><span class="pre">LogTransformation</span></code> for select features.</p></li>
+</ul>
+</li>
+<li><p>Used <code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code> for categorical features.</p></li>
 </ul>
 </li>
 </ul>
-<hr class="docutils" />
 </section>
-<section id="model-training">
-<h2><strong>2. Model Training</strong><a class="headerlink" href="#model-training" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="experiments-and-model-training">
+<h3><strong>2. Experiments and Model Training</strong><a class="headerlink" href="#experiments-and-model-training" title="Link to this heading">#</a></h3>
+<p><strong>Experiment #1</strong>:</p>
 <ul class="simple">
-<li><p><strong>Trained Models</strong>:</p>
+<li><p>Built a preprocessing pipeline with:</p>
 <ul>
-<li><p>Primarily used <code class="docutils literal notranslate"><span class="pre">XGBClassifier</span></code> for classification (<code class="docutils literal notranslate"><span class="pre">price_range</span></code> prediction).</p></li>
-<li><p>Experimented with:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">RidgeClassifier</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>, <code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code>, <code class="docutils literal notranslate"><span class="pre">LogTransformation</span></code>, <code class="docutils literal notranslate"><span class="pre">OneHotEncoding</span></code>.</p></li>
+<li><p>Trained a <strong>Logistic Regression</strong> model.</p></li>
+<li><p>Logged metrics (e.g., F1-score, TP, TN, FP, FN) in MLFlow on DagsHub.</p></li>
+<li><p>Used 10-fold cross-validation and hyperparameter tuning to optimize results.</p></li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p><strong>Model Evaluation</strong>:</p>
+<p><strong>Experiment #2</strong>:</p>
+<ul class="simple">
+<li><p>Extended preprocessing to train:</p>
 <ul>
-<li><p>Used <code class="docutils literal notranslate"><span class="pre">accuracy_score</span></code> and <code class="docutils literal notranslate"><span class="pre">classification_report</span></code> to evaluate the model.</p></li>
-<li><p>Achieved ~89.55% accuracy after including derived features like <code class="docutils literal notranslate"><span class="pre">total_camera</span></code> and <code class="docutils literal notranslate"><span class="pre">total_pixels</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, <code class="docutils literal notranslate"><span class="pre">RidgeClassifier</span></code>, <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code>, and <code class="docutils literal notranslate"><span class="pre">XGBClassifier</span></code>.</p></li>
+<li><p>Logged results (accuracy, F1-score, precision) in MLFlow.</p></li>
+<li><p>Selected <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> as the best model based on performance and overfitting checks.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Experiment #3</strong>:</p>
+<ul class="simple">
+<li><p>Performed feature engineering and logged the results:</p>
+<ul>
+<li><p>Tested combinations like <code class="docutils literal notranslate"><span class="pre">performance</span> <span class="pre">=</span> <span class="pre">battery_power</span> <span class="pre">*</span> <span class="pre">ram</span></code>.</p></li>
+<li><p>Observed significant performance gains with the <code class="docutils literal notranslate"><span class="pre">total_pixels</span></code> and <code class="docutils literal notranslate"><span class="pre">total_camera</span></code> features.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Experiment #4</strong>:</p>
+<ul class="simple">
+<li><p>Conducted feature selection using:</p>
+<ul>
+<li><p><strong>Correlation Threshold</strong>: Removed highly correlated features.</p></li>
+<li><p><strong>Feature Importance</strong>: Used model-based feature importance scores.</p></li>
+<li><p><strong>Variance Threshold</strong>: Eliminated low-variance features.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Experiment #5</strong>:</p>
+<ul class="simple">
+<li><p>Applied PCA for dimensionality reduction:</p>
+<ul>
+<li><p>Created a scree plot to determine optimal components.</p></li>
+<li><p>Reduced features to 5 principal components for further experiments.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Experiment #6</strong>:</p>
+<ul class="simple">
+<li><p>Custom Experiment:</p>
+<ul>
+<li><p>Tested ensemble methods combining Logistic Regression, Random Forest, and PCA-based classifiers.</p></li>
+<li><p>Evaluated models on unseen test data and logged metrics in MLFlow.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Experiment #7</strong>:</p>
+<ul class="simple">
+<li><p>Designed a hybrid pipeline with Random Forest and PCA.</p>
+<ul>
+<li><p>This experiment produced the best results (F1-score: 0.91, Accuracy: 0.91).</p></li>
+<li><p>Declared as the final model after cross-validation and overfitting checks.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="model-finalization">
+<h3><strong>3. Model Finalization</strong><a class="headerlink" href="#model-finalization" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Model Selection</strong>:</p>
+<ul>
+<li><p>Selected the pipeline from Experiment #7 (Random Forest with PCA) as the final model.</p></li>
+<li><p>Addressed overfitting with hyperparameter tuning and cross-validation.</p></li>
 </ul>
 </li>
 <li><p><strong>Model Saving</strong>:</p>
 <ul>
-<li><p>Saved the trained <code class="docutils literal notranslate"><span class="pre">XGBClassifier</span></code> as <code class="docutils literal notranslate"><span class="pre">xgboost_classifier_model_ultimate.pkl</span></code> using <code class="docutils literal notranslate"><span class="pre">joblib</span></code>.</p></li>
-</ul>
-</li>
-<li><p><strong>Generated Test Cases</strong>:</p>
+<li><p>Saved the model pipeline (<code class="docutils literal notranslate"><span class="pre">preprocessing</span></code>, <code class="docutils literal notranslate"><span class="pre">PCA</span></code>, <code class="docutils literal notranslate"><span class="pre">RandomForest</span></code>) using <code class="docutils literal notranslate"><span class="pre">joblib</span></code>:</p>
 <ul>
-<li><p>Randomly sampled 5 test inputs from the test set and saved them as <code class="docutils literal notranslate"><span class="pre">test_cases.json</span></code> for later use.</p></li>
+<li><p>File: <code class="docutils literal notranslate"><span class="pre">random_forest_pca_full_pipeline.joblib</span></code>.</p></li>
 </ul>
 </li>
 </ul>
-<hr class="docutils" />
+</li>
+</ul>
 </section>
+<hr class="docutils" />
 <section id="backend-development">
-<h2><strong>3. Backend Development</strong><a class="headerlink" href="#backend-development" title="Link to this heading">#</a></h2>
+<h3><strong>4. Backend Development</strong><a class="headerlink" href="#backend-development" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>FastAPI Backend</strong>:</p>
 <ul>
-<li><p>Developed <code class="docutils literal notranslate"><span class="pre">fas_app.py</span></code>:</p>
+<li><p>Developed a FastAPI application with:</p>
 <ul>
-<li><p>Root endpoint (<code class="docutils literal notranslate"><span class="pre">/</span></code>): Welcome message.</p></li>
-<li><p>Prediction endpoint (<code class="docutils literal notranslate"><span class="pre">/predict/</span></code>): Accepts JSON payloads via Pydantic <code class="docutils literal notranslate"><span class="pre">PhoneData</span></code> schema and returns the predicted <code class="docutils literal notranslate"><span class="pre">price_range</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/</span></code>: Root endpoint for a welcome message.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/predict/</span></code>: Accepts user inputs as JSON and returns predictions.</p></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p><strong>Validation and Error Handling</strong>:</p>
-<ul>
-<li><p>Ensured all required features (<code class="docutils literal notranslate"><span class="pre">battery_power</span></code>, <code class="docutils literal notranslate"><span class="pre">clock_speed</span></code>, etc.) are included in the request.</p></li>
-<li><p>Added error handling for prediction issues.</p></li>
+<li><p>Integrated Pydantic for schema validation (<code class="docutils literal notranslate"><span class="pre">PhoneData</span></code> model).</p></li>
 </ul>
 </li>
 <li><p><strong>Testing</strong>:</p>
 <ul>
-<li><p>Tested the backend using test cases and direct API calls.</p></li>
+<li><p>Validated predictions using <code class="docutils literal notranslate"><span class="pre">test_samples.json</span></code>.</p></li>
+<li><p>Handled edge cases and invalid input gracefully.</p></li>
 </ul>
 </li>
 </ul>
-<hr class="docutils" />
 </section>
+<hr class="docutils" />
 <section id="frontend-development">
-<h2><strong>4. Frontend Development</strong><a class="headerlink" href="#frontend-development" title="Link to this heading">#</a></h2>
+<h3><strong>5. Frontend Development</strong><a class="headerlink" href="#frontend-development" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Streamlit App</strong>:</p>
+<li><p><strong>Streamlit Application</strong>:</p>
 <ul>
-<li><p>Created an interactive app for user input via sliders for features.</p></li>
-<li><p>Dynamically calculated derived features (<code class="docutils literal notranslate"><span class="pre">total_camera</span></code> and <code class="docutils literal notranslate"><span class="pre">total_pixels</span></code>) from inputs.</p></li>
-<li><p>Sent user input to the FastAPI backend for prediction via <code class="docutils literal notranslate"><span class="pre">requests</span></code>.</p></li>
-</ul>
-</li>
-<li><p><strong>Streamlined UI</strong>:</p>
+<li><p>Built an interactive app:</p>
 <ul>
-<li><p>Excluded unnecessary fields (<code class="docutils literal notranslate"><span class="pre">phone_id</span></code>, <code class="docutils literal notranslate"><span class="pre">price_range</span></code>) from user input.</p></li>
+<li><p>Sliders for user input across all features.</p></li>
+<li><p>Dynamically computed derived features (<code class="docutils literal notranslate"><span class="pre">total_camera</span></code>, <code class="docutils literal notranslate"><span class="pre">total_pixels</span></code>).</p></li>
+<li><p>Integrated with the FastAPI backend for real-time predictions.</p></li>
 </ul>
 </li>
 </ul>
-<hr class="docutils" />
+</li>
+<li><p><strong>UI Features</strong>:</p>
+<ul>
+<li><p>Clean and intuitive design.</p></li>
+<li><p>Displayed predictions and allowed results to be downloaded as a CSV.</p></li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="dockerization">
-<h2><strong>5. Dockerization</strong><a class="headerlink" href="#dockerization" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="containerization">
+<h3><strong>6. Containerization</strong><a class="headerlink" href="#containerization" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Created Dockerfile</strong>:</p>
+<li><p><strong>Dockerized the FastAPI Application</strong>:</p>
 <ul>
-<li><p>Set up a Docker container to run the FastAPI backend.</p></li>
-<li><p>Included dependencies installation (<code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>) and proper directory structure.</p></li>
-<li><p>Configured the container to expose port <code class="docutils literal notranslate"><span class="pre">80</span></code> and run the app using <code class="docutils literal notranslate"><span class="pre">uvicorn</span></code>.</p></li>
+<li><p>Created a <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> to package the backend, dependencies, and model.</p></li>
+<li><p>Configured the container to:</p>
+<ul>
+<li><p>Install dependencies from <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>.</p></li>
+<li><p>Run the FastAPI app using <code class="docutils literal notranslate"><span class="pre">uvicorn</span></code> on port <code class="docutils literal notranslate"><span class="pre">80</span></code>.</p></li>
 </ul>
 </li>
 </ul>
-<hr class="docutils" />
+</li>
+<li><p><strong>Docker Hub Deployment</strong>:</p>
+<ul>
+<li><p>Built and pushed the containerized application to Docker Hub.</p></li>
+<li><p>Enabled portability and cloud deployment.</p></li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="dependency-management">
-<h2><strong>6. Dependency Management</strong><a class="headerlink" href="#dependency-management" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="integration-and-deployment">
+<h3><strong>7. Integration and Deployment</strong><a class="headerlink" href="#integration-and-deployment" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Generated <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></strong>:</p>
-<ul>
-<li><p>Included all required Python libraries:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">fastapi</span></code>, <code class="docutils literal notranslate"><span class="pre">uvicorn</span></code>, <code class="docutils literal notranslate"><span class="pre">xgboost</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, <code class="docutils literal notranslate"><span class="pre">streamlit</span></code>, <code class="docutils literal notranslate"><span class="pre">joblib</span></code>, <code class="docutils literal notranslate"><span class="pre">mlflow</span></code>, and more.</p></li>
+<li><p>Deployed the containerized FastAPI app to a cloud platform (AWS/GCP/Azure).</p></li>
+<li><p>Verified the deployment and tested the API with sample requests.</p></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr class="docutils" />
 </section>
-<section id="debugging">
-<h2><strong>7. Debugging</strong><a class="headerlink" href="#debugging" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="results-and-visualization">
+<h3><strong>8. Results and Visualization</strong><a class="headerlink" href="#results-and-visualization" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Fixed Overfitting</strong>:</p>
+<li><p><strong>Model Comparison</strong>:</p>
 <ul>
-<li><p>Regularized the <code class="docutils literal notranslate"><span class="pre">XGBClassifier</span></code> with:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">max_depth</span></code>, <code class="docutils literal notranslate"><span class="pre">min_child_weight</span></code>, and <code class="docutils literal notranslate"><span class="pre">subsample</span></code>.</p></li>
+<li><p>Plotted F1-scores, precision, recall, and accuracy across all experiments.</p></li>
+<li><p>Declared Experiment #7 (Random Forest + PCA) as the best model.</p></li>
 </ul>
 </li>
-<li><p>Added early stopping to prevent overfitting during training.</p></li>
-</ul>
-</li>
-<li><p><strong>Validated Feature Importance</strong>:</p>
+<li><p><strong>Prediction Output</strong>:</p>
 <ul>
-<li><p>Found <code class="docutils literal notranslate"><span class="pre">ram</span></code> to dominate, contributing 46% importance.</p></li>
-<li><p>Addressed low-importance features by testing their removal.</p></li>
-</ul>
-</li>
-<li><p><strong>Ensured Consistency</strong>:</p>
-<ul>
-<li><p>Matched preprocessing steps during both training and prediction to avoid data mismatch issues.</p></li>
+<li><p>Validated model predictions using test cases (<code class="docutils literal notranslate"><span class="pre">test_samples.json</span></code>).</p></li>
 </ul>
 </li>
 </ul>
-<hr class="docutils" />
 </section>
+<hr class="docutils" />
+<section id="deliverables">
+<h3><strong>9. Deliverables</strong><a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Code and Artifacts</strong>:</p>
+<ul class="simple">
+<li><p>Final model: <code class="docutils literal notranslate"><span class="pre">random_forest_pca_full_pipeline.joblib</span></code>.</p></li>
+<li><p>FastAPI app: <code class="docutils literal notranslate"><span class="pre">fas_app.py</span></code>.</p></li>
+<li><p>Streamlit app: <code class="docutils literal notranslate"><span class="pre">streamlit_app.py</span></code>.</p></li>
+<li><p>Docker container.</p></li>
+</ul>
+</li>
+<li><p><strong>Project Documentation</strong>:</p>
+<ul class="simple">
+<li><p>Created a JupyterBook site:</p>
+<ul>
+<li><p>Resume.</p></li>
+<li><p>Embedded video walkthrough (12–15 minutes).</p></li>
+<li><p>Links to MLFlow experiments, Docker Hub image, deployed model, and Streamlit app.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Video Presentation</strong>:</p>
+<ul class="simple">
+<li><p>Recorded a detailed explanation of the project.</p></li>
+<li><p>Walkthrough of the Jupyter Notebook and key deliverables.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
 <section id="achievements">
-<h2><strong>Achievements</strong><a class="headerlink" href="#achievements" title="Link to this heading">#</a></h2>
+<h3><strong>Achievements</strong><a class="headerlink" href="#achievements" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Successfully trained and deployed an accurate model for predicting mobile price ranges.</p></li>
-<li><p>Created a fully integrated system with:</p>
-<ul>
-<li><p><strong>Backend</strong>: FastAPI for predictions.</p></li>
-<li><p><strong>Frontend</strong>: Streamlit for user interaction.</p></li>
-<li><p><strong>Docker</strong>: For containerized deployment.</p></li>
+<li><p>Built an end-to-end system for predicting mobile phone price ranges.</p></li>
+<li><p>Integrated backend, frontend, and deployment for a seamless user experience.</p></li>
+<li><p>Achieved high model performance (F1-score: 0.91, Accuracy: 0.91) with robust validation.</p></li>
 </ul>
-</li>
-</ul>
+</section>
 </section>
 <hr class="docutils" />
 <div class="toctree-wrapper compound">
@@ -615,11 +714,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="video.html"
+       href="links.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">My Video</p>
+        <p class="prev-next-title">Links</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -640,14 +739,19 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-and-preprocessing"><strong>1. Dataset and Preprocessing</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training"><strong>2. Model Training</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-development"><strong>3. Backend Development</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frontend-development"><strong>4. Frontend Development</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dockerization"><strong>5. Dockerization</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-management"><strong>6. Dependency Management</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging"><strong>7. Debugging</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#achievements"><strong>Achievements</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary"><strong>Summary</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#database-and-data-preprocessing"><strong>1. Database and Data Preprocessing</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experiments-and-model-training"><strong>2. Experiments and Model Training</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-finalization"><strong>3. Model Finalization</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-development"><strong>4. Backend Development</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frontend-development"><strong>5. Frontend Development</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#containerization"><strong>6. Containerization</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-and-deployment"><strong>7. Integration and Deployment</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-and-visualization"><strong>8. Results and Visualization</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables"><strong>9. Deliverables</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#achievements"><strong>Achievements</strong></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

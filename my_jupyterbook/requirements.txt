@@ -1,3 +1,17 @@
 jupyter-book
 matplotlib
 numpy
+fastapi[standard]
+uvicorn
+dill
+pandas
+pydantic
+scikit-learn
+joblib
+xgboost
+seaborn
+imbalanced-learn
+ydata-profiling
+mlflow
+streamlit
+requests

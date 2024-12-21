@@ -1,0 +1,1078 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Creating a normalized database (3NF) &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'eas503/notebook1';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Initial Data Exploration" href="notebook2.html" />
+    <link rel="prev" title="Links" href="links.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../aboutme.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../aboutme.html">
+                    About Me
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../portfolio.html">Portfolio</a></li>
+
+
+
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="EAS503.html">EAS503 - Phone Price Prediction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="links.html">Links</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Creating a normalized database (3NF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebook2.html">Initial Data Exploration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebook3.html">Data Experiments and Final Data Analysis</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Feas503/notebook1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/eas503/notebook1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Creating a normalized database (3NF)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="creating-a-normalized-database-3nf">
+<h1>Creating a normalized database (3NF)<a class="headerlink" href="#creating-a-normalized-database-3nf" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+ <span class="s2">&quot;kernelspec&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;display_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Python 3&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python3&quot;</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;language_info&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;codemirror_mode&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ipython&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">3</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;file_extension&quot;</span><span class="p">:</span> <span class="s2">&quot;.py&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;mimetype&quot;</span><span class="p">:</span> <span class="s2">&quot;text/x-python&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;nbconvert_exporter&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pygments_lexer&quot;</span><span class="p">:</span> <span class="s2">&quot;ipython3&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.8.0&quot;</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;kernelspec&#39;: {&#39;display_name&#39;: &#39;Python 3&#39;,
+  &#39;language&#39;: &#39;python&#39;,
+  &#39;name&#39;: &#39;python3&#39;},
+ &#39;language_info&#39;: {&#39;codemirror_mode&#39;: {&#39;name&#39;: &#39;ipython&#39;, &#39;version&#39;: 3},
+  &#39;file_extension&#39;: &#39;.py&#39;,
+  &#39;mimetype&#39;: &#39;text/x-python&#39;,
+  &#39;name&#39;: &#39;python&#39;,
+  &#39;nbconvert_exporter&#39;: &#39;python&#39;,
+  &#39;pygments_lexer&#39;: &#39;ipython3&#39;,
+  &#39;version&#39;: &#39;3.8.0&#39;}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">df_csv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mobile_prices.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">import</span> <span class="nn">ydata_profiling</span>
+
+<span class="n">profile</span> <span class="o">=</span> <span class="n">ydata_profiling</span><span class="o">.</span><span class="n">ProfileReport</span><span class="p">(</span><span class="n">df_csv</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Pandas Profiling Report&quot;</span><span class="p">)</span>
+<span class="c1"># profile</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>  <span class="c1"># For progress bar</span>
+
+<span class="n">csv_path</span> <span class="o">=</span> <span class="s1">&#39;mobile_prices.csv&#39;</span>
+
+<span class="k">def</span> <span class="nf">create_database</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span> <span class="n">db_path</span><span class="o">=</span><span class="s1">&#39;mobile_phones.db&#39;</span><span class="p">):</span>
+    <span class="c1"># Load CSV data</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading data from </span><span class="si">{</span><span class="n">csv_path</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="n">df_csv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_csv</span><span class="p">)</span><span class="si">}</span><span class="s2"> records from CSV&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Create SQLite database</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    
+    <span class="c1"># Create tables</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    CREATE TABLE IF NOT EXISTS phones (</span>
+<span class="s1">        phone_id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s1">        battery_power INTEGER NOT NULL,</span>
+<span class="s1">        clock_speed DECIMAL(3,1) NOT NULL,</span>
+<span class="s1">        m_dep DECIMAL(3,1) NOT NULL,</span>
+<span class="s1">        mobile_wt INTEGER NOT NULL,</span>
+<span class="s1">        n_cores INTEGER NOT NULL,</span>
+<span class="s1">        ram INTEGER NOT NULL,</span>
+<span class="s1">        talk_time INTEGER NOT NULL,</span>
+<span class="s1">        price_range INTEGER NOT NULL,</span>
+<span class="s1">        CONSTRAINT chk_price_range CHECK (price_range BETWEEN 0 AND 3)</span>
+<span class="s1">    )</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+    
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    CREATE TABLE IF NOT EXISTS screen_specs (</span>
+<span class="s1">        screen_id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s1">        phone_id INTEGER NOT NULL,</span>
+<span class="s1">        px_height INTEGER NOT NULL,</span>
+<span class="s1">        px_width INTEGER NOT NULL,</span>
+<span class="s1">        sc_h DECIMAL(4,1) NOT NULL,</span>
+<span class="s1">        sc_w DECIMAL(4,1) NOT NULL,</span>
+<span class="s1">        FOREIGN KEY (phone_id) REFERENCES phones(phone_id)</span>
+<span class="s1">    )</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+    
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    CREATE TABLE IF NOT EXISTS camera_specs (</span>
+<span class="s1">        camera_id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s1">        phone_id INTEGER NOT NULL,</span>
+<span class="s1">        fc INTEGER NOT NULL,</span>
+<span class="s1">        pc INTEGER NOT NULL,</span>
+<span class="s1">        FOREIGN KEY (phone_id) REFERENCES phones(phone_id)</span>
+<span class="s1">    )</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+    
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    CREATE TABLE IF NOT EXISTS phone_features (</span>
+<span class="s1">        feature_id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s1">        phone_id INTEGER NOT NULL,</span>
+<span class="s1">        blue BOOLEAN NOT NULL,</span>
+<span class="s1">        dual_sim BOOLEAN NOT NULL,</span>
+<span class="s1">        four_g BOOLEAN NOT NULL,</span>
+<span class="s1">        three_g BOOLEAN NOT NULL,</span>
+<span class="s1">        touch_screen BOOLEAN NOT NULL,</span>
+<span class="s1">        wifi BOOLEAN NOT NULL,</span>
+<span class="s1">        FOREIGN KEY (phone_id) REFERENCES phones(phone_id)</span>
+<span class="s1">    )</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+    
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    CREATE TABLE IF NOT EXISTS storage_specs (</span>
+<span class="s1">        storage_id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s1">        phone_id INTEGER NOT NULL,</span>
+<span class="s1">        int_memory INTEGER NOT NULL,</span>
+<span class="s1">        FOREIGN KEY (phone_id) REFERENCES phones(phone_id)</span>
+<span class="s1">    )</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Insert data into tables with progress bar</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Inserting data into database...&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_csv</span><span class="p">)),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Processing records&quot;</span><span class="p">):</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">df_csv</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        
+        <span class="c1"># Insert into phones table</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        INSERT INTO phones (</span>
+<span class="s1">            battery_power, clock_speed, m_dep, mobile_wt, n_cores,</span>
+<span class="s1">            ram, talk_time, price_range</span>
+<span class="s1">        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)</span>
+<span class="s1">        &#39;&#39;&#39;</span><span class="p">,</span> <span class="p">(</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;battery_power&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;clock_speed&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;m_dep&#39;</span><span class="p">],</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;mobile_wt&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;n_cores&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;ram&#39;</span><span class="p">],</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;talk_time&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;price_range&#39;</span><span class="p">]</span>
+        <span class="p">))</span>
+        
+        <span class="c1"># Get the last inserted phone_id</span>
+        <span class="n">phone_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">lastrowid</span>
+        
+        <span class="c1"># Insert into screen_specs</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        INSERT INTO screen_specs (</span>
+<span class="s1">            phone_id, px_height, px_width, sc_h, sc_w</span>
+<span class="s1">        ) VALUES (?, ?, ?, ?, ?)</span>
+<span class="s1">        &#39;&#39;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">phone_id</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;px_height&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;px_width&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;sc_h&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;sc_w&#39;</span><span class="p">]))</span>
+        
+        <span class="c1"># Insert into camera_specs</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        INSERT INTO camera_specs (</span>
+<span class="s1">            phone_id, fc, pc</span>
+<span class="s1">        ) VALUES (?, ?, ?)</span>
+<span class="s1">        &#39;&#39;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">phone_id</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;fc&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;pc&#39;</span><span class="p">]))</span>
+        
+        <span class="c1"># Insert into phone_features</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        INSERT INTO phone_features (</span>
+<span class="s1">            phone_id, blue, dual_sim, four_g, three_g, touch_screen, wifi</span>
+<span class="s1">        ) VALUES (?, ?, ?, ?, ?, ?, ?)</span>
+<span class="s1">        &#39;&#39;&#39;</span><span class="p">,</span> <span class="p">(</span>
+            <span class="n">phone_id</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;dual_sim&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;four_g&#39;</span><span class="p">],</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;three_g&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;touch_screen&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;wifi&#39;</span><span class="p">]</span>
+        <span class="p">))</span>
+        
+        <span class="c1"># Insert into storage_specs</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        INSERT INTO storage_specs (</span>
+<span class="s1">            phone_id, int_memory</span>
+<span class="s1">        ) VALUES (?, ?)</span>
+<span class="s1">        &#39;&#39;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">phone_id</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;int_memory&#39;</span><span class="p">]))</span>
+    
+    <span class="c1"># Commit changes and close connection</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Database created successfully at </span><span class="si">{</span><span class="n">db_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">verify_database</span><span class="p">(</span><span class="n">db_path</span><span class="o">=</span><span class="s1">&#39;mobile_phones.db&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verify the database by counting rows in each table&quot;&quot;&quot;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    
+    <span class="c1"># Create DataFrame from SQLite tables</span>
+    <span class="n">df_db</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;phones&#39;</span><span class="p">,</span> <span class="s1">&#39;screen_specs&#39;</span><span class="p">,</span> <span class="s1">&#39;camera_specs&#39;</span><span class="p">,</span> <span class="s1">&#39;phone_features&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_specs&#39;</span><span class="p">]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Database verification:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+        <span class="c1"># Get row count</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT COUNT(*) FROM </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> rows&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Store table data in DataFrame</span>
+        <span class="n">df_db</span><span class="p">[</span><span class="n">table</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+    
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df_db</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">csv_path</span><span class="p">:</span>
+        <span class="n">csv_path</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the path to your CSV file: &quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">csv_path</span> <span class="ow">and</span> <span class="n">Path</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">create_database</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
+        <span class="n">df_db</span> <span class="o">=</span> <span class="n">verify_database</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Database DataFrames stored in df_db dictionary.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Access tables using df_db[&#39;table_name&#39;], e.g., df_db[&#39;phones&#39;]&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">csv_path</span> <span class="ow">and</span> <span class="s1">&#39;df_csv&#39;</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
+        <span class="n">create_database</span><span class="p">(</span><span class="n">df_csv</span><span class="p">)</span>
+        <span class="n">df_db</span> <span class="o">=</span> <span class="n">verify_database</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Database DataFrames stored in df_db dictionary.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Access tables using df_db[&#39;table_name&#39;], e.g., df_db[&#39;phones&#39;]&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: File </span><span class="si">{</span><span class="n">csv_path</span><span class="si">}</span><span class="s2"> not found!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading data from mobile_prices.csv...
+Loaded 2000 records from CSV
+
+Inserting data into database...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing records:   0%|                                                                                                                                       | 0/2000 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing records:  94%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████▊       | 1882/2000 [00:00&lt;00:00, 18728.66it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing records: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2000/2000 [00:00&lt;00:00, 18623.22it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Database created successfully at mobile_phones.db
+
+Database verification:
+phones: 58007 rows
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>screen_specs: 58007 rows
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>camera_specs: 58007 rows
+phone_features: 58007 rows
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>storage_specs: 58007 rows
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Database DataFrames stored in df_db dictionary.
+Access tables using df_db[&#39;table_name&#39;], e.g., df_db[&#39;phones&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+
+<span class="c1"># Connect to the database</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;mobile_phones.db&#39;</span><span class="p">)</span>
+
+<span class="c1"># 1. Basic join of all tables</span>
+<span class="n">query_all</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">    p.phone_id,</span>
+<span class="s2">    p.battery_power,</span>
+<span class="s2">    p.clock_speed,</span>
+<span class="s2">    p.m_dep,</span>
+<span class="s2">    p.mobile_wt,</span>
+<span class="s2">    p.n_cores,</span>
+<span class="s2">    p.ram,</span>
+<span class="s2">    p.talk_time,</span>
+<span class="s2">    p.price_range,</span>
+<span class="s2">    s.px_height,</span>
+<span class="s2">    s.px_width,</span>
+<span class="s2">    s.sc_h,</span>
+<span class="s2">    s.sc_w,</span>
+<span class="s2">    c.fc,</span>
+<span class="s2">    c.pc,</span>
+<span class="s2">    f.blue,</span>
+<span class="s2">    f.dual_sim,</span>
+<span class="s2">    f.four_g,</span>
+<span class="s2">    f.three_g,</span>
+<span class="s2">    f.touch_screen,</span>
+<span class="s2">    f.wifi,</span>
+<span class="s2">    st.int_memory</span>
+<span class="s2">FROM phones p</span>
+<span class="s2">JOIN screen_specs s ON p.phone_id = s.phone_id</span>
+<span class="s2">JOIN camera_specs c ON p.phone_id = c.phone_id</span>
+<span class="s2">JOIN phone_features f ON p.phone_id = f.phone_id</span>
+<span class="s2">JOIN storage_specs st ON p.phone_id = st.phone_id</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Load complete dataset</span>
+<span class="n">df_complete</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">query_all</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Complete dataset shape:&quot;</span><span class="p">,</span> <span class="n">df_complete</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First few rows of complete dataset:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_complete</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 2. Join for high-end phones (price_range = 3) with their features</span>
+<span class="n">query_high_end</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">    p.phone_id,</span>
+<span class="s2">    p.battery_power,</span>
+<span class="s2">    p.ram,</span>
+<span class="s2">    f.four_g,</span>
+<span class="s2">    f.touch_screen,</span>
+<span class="s2">    s.px_height,</span>
+<span class="s2">    s.px_width,</span>
+<span class="s2">    c.fc as front_camera,</span>
+<span class="s2">    c.pc as primary_camera</span>
+<span class="s2">FROM phones p</span>
+<span class="s2">JOIN phone_features f ON p.phone_id = f.phone_id</span>
+<span class="s2">JOIN screen_specs s ON p.phone_id = s.phone_id</span>
+<span class="s2">JOIN camera_specs c ON p.phone_id = c.phone_id</span>
+<span class="s2">WHERE p.price_range = 3</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">df_high_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">query_high_end</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">High-end phones shape:&quot;</span><span class="p">,</span> <span class="n">df_high_end</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First few high-end phones:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_high_end</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 3. Join for finding phones with specific features</span>
+<span class="n">query_feature_focus</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">    p.phone_id,</span>
+<span class="s2">    p.battery_power,</span>
+<span class="s2">    p.price_range,</span>
+<span class="s2">    f.four_g,</span>
+<span class="s2">    f.wifi,</span>
+<span class="s2">    f.touch_screen,</span>
+<span class="s2">    st.int_memory</span>
+<span class="s2">FROM phones p</span>
+<span class="s2">JOIN phone_features f ON p.phone_id = f.phone_id</span>
+<span class="s2">JOIN storage_specs st ON p.phone_id = st.phone_id</span>
+<span class="s2">WHERE f.four_g = 1 </span>
+<span class="s2">AND f.wifi = 1</span>
+<span class="s2">AND f.touch_screen = 1</span>
+<span class="s2">ORDER BY p.price_range DESC</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">df_feature_focus</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">query_feature_focus</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Feature-focused phones shape:&quot;</span><span class="p">,</span> <span class="n">df_feature_focus</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First few feature-focused phones:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_feature_focus</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 4. Join for screen and camera analysis</span>
+<span class="n">query_screen_camera</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">    p.phone_id,</span>
+<span class="s2">    p.price_range,</span>
+<span class="s2">    s.px_height * s.px_width as total_pixels,</span>
+<span class="s2">    s.sc_h * s.sc_w as screen_area,</span>
+<span class="s2">    c.fc + c.pc as total_camera_mp</span>
+<span class="s2">FROM phones p</span>
+<span class="s2">JOIN screen_specs s ON p.phone_id = s.phone_id</span>
+<span class="s2">JOIN camera_specs c ON p.phone_id = c.phone_id</span>
+<span class="s2">ORDER BY total_camera_mp DESC</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">df_screen_camera</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">query_screen_camera</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Screen and camera analysis shape:&quot;</span><span class="p">,</span> <span class="n">df_screen_camera</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First few rows of screen and camera analysis:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_screen_camera</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Close the connection</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># Example analyses using the DataFrames</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Summary Statistics:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Average specs by price range:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_complete</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;price_range&#39;</span><span class="p">)[[</span><span class="s1">&#39;battery_power&#39;</span><span class="p">,</span> <span class="s1">&#39;ram&#39;</span><span class="p">,</span> <span class="s1">&#39;int_memory&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">4G adoption by price range:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_complete</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;price_range&#39;</span><span class="p">)[</span><span class="s1">&#39;four_g&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Correlation between price range and total camera megapixels:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_screen_camera</span><span class="p">[[</span><span class="s1">&#39;price_range&#39;</span><span class="p">,</span> <span class="s1">&#39;total_camera_mp&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Complete dataset shape: (58007, 22)
+
+First few rows of complete dataset:
+   phone_id  battery_power  clock_speed  m_dep  mobile_wt  n_cores   ram  \
+0         1            842          2.2    0.6        188        2  2549   
+1         2           1021          0.5    0.7        136        3  2631   
+2         3            563          0.5    0.9        145        5  2603   
+3         4            615          2.5    0.8        131        6  2769   
+4         5           1821          1.2    0.6        141        2  1411   
+
+   talk_time  price_range  px_height  ...  sc_w  fc  pc  blue  dual_sim  \
+0         19            1         20  ...     7   1   2     0         0   
+1          7            2        905  ...     3   0   6     1         1   
+2          9            2       1263  ...     2   2   6     1         1   
+3         11            2       1216  ...     8   0   9     1         0   
+4         15            1       1208  ...     2  13  14     1         0   
+
+   four_g  three_g  touch_screen  wifi  int_memory  
+0       0        0             0     1           7  
+1       1        1             1     0          53  
+2       1        1             1     0          41  
+3       0        1             0     0          10  
+4       1        1             1     0          44  
+
+[5 rows x 22 columns]
+
+High-end phones shape: (14501, 9)
+
+First few high-end phones:
+   phone_id  battery_power   ram  four_g  touch_screen  px_height  px_width  \
+0         7           1821  3220       1             0        381      1018   
+1        14           1821  3220       1             0        381      1018   
+2        18            769  3946       0             0        248       874   
+3        19           1520  3826       1             1        151      1005   
+4        24            838  3554       1             0        984      1850   
+
+   front_camera  primary_camera  
+0             4              10  
+1             4              10  
+2             0               1  
+3             5              18  
+4             1               4  
+
+Feature-focused phones shape: (7743, 7)
+
+First few feature-focused phones:
+   phone_id  battery_power  price_range  four_g  wifi  touch_screen  \
+0        19           1520            3       1     1             1   
+1        78           1448            3       1     1             1   
+2        88           1589            3       1     1             1   
+3       123           1900            3       1     1             1   
+4       131           1379            3       1     1             1   
+
+   int_memory  
+0          33  
+1          45  
+2          58  
+3          18  
+4          36  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Screen and camera analysis shape: (58007, 5)
+
+First few rows of screen and camera analysis:
+   phone_id  price_range  total_pixels  screen_area  total_camera_mp
+0      1713            0        300510           32               39
+1      3713            0        300510           32               39
+2      5713            0        300510           32               39
+3      7713            0        300510           32               39
+4      9713            0        300510           32               39
+
+Summary Statistics:
+
+Average specs by price range:
+             battery_power          ram  int_memory
+price_range                                        
+0              1116.902000   785.314000   31.174000
+1              1228.925602  1679.489209   32.114390
+2              1228.217541  2582.833552   30.920775
+3              1380.014413  3449.216192   33.974347
+
+4G adoption by price range:
+price_range
+0    0.518000
+1    0.523961
+2    0.494036
+3    0.550031
+Name: four_g, dtype: float64
+
+Correlation between price range and total camera megapixels:
+                 price_range  total_camera_mp
+price_range         1.000000         0.031605
+total_camera_mp     0.031605         1.000000
+</pre></div>
+</div>
+</div>
+</div>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>This notebook demonstrated the transformation of raw CSV data into a normalized SQLite database, providing an efficient framework for future analyses and decision-making.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># 1. Distribution of Price Range</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;price_range&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_complete</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of Price Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Price Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 2. Battery Power vs. Price Range</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;price_range&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;battery_power&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_complete</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Battery Power vs. Price Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Price Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Battery Power&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 3. RAM vs. Price Range</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;price_range&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;ram&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_complete</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;RAM vs. Price Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Price Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;RAM&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 4. 4G Adoption by Price Range</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">four_g_adoption</span> <span class="o">=</span> <span class="n">df_complete</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;price_range&#39;</span><span class="p">)[</span><span class="s1">&#39;four_g&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;price_range&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;four_g&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">four_g_adoption</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;4G Adoption by Price Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Price Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;4G Adoption Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 5. Correlation Heatmap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">df_complete</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.2f&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Correlation Heatmap&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3f4c40c74d3ed2ac84e5a797c5eb4b449114f4e4f4dbd40f3469081fdd63725f.png" src="../_images/3f4c40c74d3ed2ac84e5a797c5eb4b449114f4e4f4dbd40f3469081fdd63725f.png" />
+<img alt="../_images/b4c7f13d6d098918553039777e1de46a3836490c4b80496940d4d87bde7d8ad2.png" src="../_images/b4c7f13d6d098918553039777e1de46a3836490c4b80496940d4d87bde7d8ad2.png" />
+<img alt="../_images/3324350e3bc35dce6fa45cf344924725e0cc04a1daaa11e4853c94a6f10fa3fe.png" src="../_images/3324350e3bc35dce6fa45cf344924725e0cc04a1daaa11e4853c94a6f10fa3fe.png" />
+<img alt="../_images/4c49d6702e5b670c7ab2c104cf41f8c95a6227f20ece9e4825a8a292e61f297f.png" src="../_images/4c49d6702e5b670c7ab2c104cf41f8c95a6227f20ece9e4825a8a292e61f297f.png" />
+<img alt="../_images/035cea58970c5f8686fc7293814b980f86c8fe06d1b5a731b8c29f1ec1db6108.png" src="../_images/035cea58970c5f8686fc7293814b980f86c8fe06d1b5a731b8c29f1ec1db6108.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./eas503"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="links.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Links</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="notebook2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Initial Data Exploration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
